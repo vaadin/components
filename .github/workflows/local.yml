@@ -7,17 +7,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Set up Node 12.x
-      uses: actions/setup-node@v2
+    - name: Set up Node 16.x
+      uses: actions/setup-node@v4
       with:
-        node-version: 12.x
+        node-version: 16.x
 
     - name: Check out the source code
       uses: actions/checkout@v2
-
-    - name: Install latest npm
-      # magi-cli 1.0 requires npm 7 or higher
-      run: "npm install -g npm@8"
 
     - name: Install global npm dependencies
       # bower is needed to run 'bower install'
@@ -45,17 +41,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Set up Node 12.x
-      uses: actions/setup-node@v2
+    - name: Set up Node 16.x
+      uses: actions/setup-node@v4
       with:
-        node-version: 12.x
+        node-version: 16.x
 
     - name: Check out the (Polymer 2) source code
       uses: actions/checkout@v2
-
-    - name: Install latest npm
-      # magi-cli 1.0 requires npm 7 or higher
-      run: "npm install -g npm@8"
 
     - name: Install global npm dependencies
       # bower and polymer-modulizer are needed to run the Polymer 3 conversion step

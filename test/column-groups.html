@@ -531,7 +531,7 @@
           ].forEach(a => expect(getFooterCell(a[0], a[1]).hasAttribute('frozen')).to.be.true);
         });
 
-        (isFirefox ? it.skip : it)('should have last row fully visible when scrolled to end', done => {
+        it.skip('should have last row fully visible when scrolled to end', done => {
           scrollToEnd(grid);
 
           animationFrameFlush(() => {

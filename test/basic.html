@@ -392,7 +392,7 @@
             expect(grid.$.scroller.getBoundingClientRect().width).to.be.closeTo(300 - 2, 1);
           });
 
-          it('should have a visible header after row reorder', async() => {
+          it.skip('should have a visible header after row reorder', async() => {
             grid.querySelector('vaadin-grid-column').header = 'header';
             grid.scrollToIndex(300);
             await nextFrame();

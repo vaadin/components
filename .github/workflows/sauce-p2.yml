@@ -7,17 +7,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Set up Node 12.x
-      uses: actions/setup-node@v2
+    - name: Set up Node 16.x
+      uses: actions/setup-node@v4
       with:
-        node-version: 12.x
+        node-version: 16.x
 
     - name: Check out the source code
       uses: actions/checkout@v2
-
-    - name: Install latest npm
-      # magi-cli 1.0 requires npm 7 or higher
-      run: "npm install -g npm@8"
 
     - name: Install global npm dependencies
       # bower is needed to run 'bower install'
@@ -29,38 +25,42 @@ jobs:
     - name: Install project Bower dependencies
       run: "bower install --quiet"
 
+      # workaround for running tests on Android on SauceLabs (see wct.conf.js)
+    - name: Add 'localhost-for-saucelabs' to /etc/hosts
+      run: echo "127.0.0.1 localhost-for-saucelabs" | sudo tee -a /etc/hosts
+
     - name: Run unit tests [Desktop / Batch 1]
       env:
         SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
         SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-      run: npm test -- --env saucelabs:desktop --suites batch1
+      run: npm test -- --env saucelabs --suites batch1
 
     - name: Run unit tests [Desktop / Batch 2]
       env:
         SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
         SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-      run: npm test -- --env saucelabs:desktop --suites batch2
+      run: npm test -- --env saucelabs --suites batch2
 
     - name: Run unit tests [Desktop / Batch 3]
       env:
         SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
         SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-      run: npm test -- --env saucelabs:desktop --suites batch3
+      run: npm test -- --env saucelabs --suites batch3
 
     - name: Run unit tests [Desktop / Batch 4]
       env:
         SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
         SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-      run: npm test -- --env saucelabs:desktop --suites batch4
+      run: npm test -- --env saucelabs --suites batch4
 
     - name: Run unit tests [Desktop / Batch 5]
       env:
         SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
         SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-      run: npm test -- --env saucelabs:desktop --suites batch5
+      run: npm test -- --env saucelabs --suites batch5
 
     - name: Run unit tests [Desktop / Polymer2 Only]
       env:
         SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
         SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-      run: npm test -- --env saucelabs:desktop --suites polymer2Only
+      run: npm test -- --env saucelabs --suites polymer2Only

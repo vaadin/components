@@ -51,5 +51,10 @@
     "data-grid",
     "data-table"
   ],
-  "dependencies": {}
+  "dependencies": {},
+  "overrides": {
+    "wct-sauce": {
+      "sauce-connect-launcher": "vaadin/sauce-connect-launcher#upgrade-sauce-connect-5"
+    }
+  }
 }
